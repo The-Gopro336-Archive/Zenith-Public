@@ -1,2 +1,2 @@
-# Zenith-Public
-old client, now public
+# Zenith-main
+ Zenith client
