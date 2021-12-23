@@ -5,4 +5,4 @@ old ass client, now public
  
 will not be updating
 
-some of this code was written in mid 2020 lol dont judge
+made on and off from late 2020 to aug 2021
