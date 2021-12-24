@@ -65,10 +65,10 @@ dependencies {
 		exclude module: 'commons-io'
 	}
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-	//compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-	//compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
-	//runtime files('libs/java-discord-rpc-2.0.1-all.jar')
+	compile "org.jetbrains.kotlin:kotlin-stdlib-common:$kotlin_version"
+	runtime files('libs/java-discord-rpc-2.0.1-all.jar')
 	compile(group: 'org.reflections', name: 'reflections', version: project.reflections_version) {
 		exclude group: 'com.google.guava', module: 'guava'
 	}
@@ -117,9 +117,9 @@ shadowJar {
 	dependencies {
 		include(dependency('org.spongepowered:mixin'))
 		include(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7"))
-		//include(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8"))
+		include(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8"))
 		include(dependency("org.jetbrains.kotlin:kotlin-stdlib"))
-		//include(dependency("org.jetbrains.kotlin:kotlin-stdlib-common"))
+		include(dependency("org.jetbrains.kotlin:kotlin-stdlib-common"))
 		include(dependency('org.reflections:reflections'))
 	}
 	exclude 'dummyThing'
@@ -133,10 +133,10 @@ jar {
 				'MixinConfigs': 'mixins.zenith.json',
 				'TweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
 				'TweakOrder': 0,
-				'FMLCorePluginContainsFMLMod': 'true',
-				'FMLCorePlugin': 				'me.gopro336.zenith.asm.mixin.loader.MixinLoader',
-				'ForceLoadAsMod': 'true',
-				//'FMLAT': 'zenith_at.cfg'
+				'FMLCorePluginContainsFMLMod':'true',
+				'FMLCorePlugin':'me.gopro336.zenith.asm.mixin.loader.MixinLoader',
+				'ForceLoadAsMod':'true',
+				'FMLAT': 'zenith_at.cfg'
 		)
 	}
 }

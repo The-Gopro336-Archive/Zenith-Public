@@ -4,6 +4,7 @@ import com.google.common.reflect.ClassPath;
 import me.gopro336.zenith.api.util.newRotations.RotationManager;
 import me.gopro336.zenith.api.util.time.TickRateUtil;
 import me.gopro336.zenith.api.util.time.TimerManager;
+import me.gopro336.zenith.api.config.ConfigManagerJSON;
 import me.gopro336.zenith.core.Init;
 import me.gopro336.zenith.core.InitStage;
 import me.gopro336.zenith.event.EventProcessor;
@@ -42,12 +43,12 @@ import java.util.stream.Stream;
  * @version 1.12.2
  * @since 11/x/2020
  */
-@Mod(modid = "zenith", name = "Zenith", version = "1.2.4")
+@Mod(modid = "zenith", name = "Zenith", version = "1.4.0-beta")
 public class Zenith implements IGlobals
 {
 	public static final String name = "Zenith";
 	//public static final String version = "1.2.4-beta";
-	public static final String version = "1.2.4-release";
+	public static final String version = "1.4.0-beta";
 	public static final String creator = "Gopro336";
 
 	@Mod.Instance
@@ -58,6 +59,7 @@ public class Zenith implements IGlobals
 	public RotationManager 			rotationManager;
 	public static TpsManager 		tpsManager;
 	public static TickManager 		tickManager;
+	public static ConfigManagerJSON configManagerJSON;
 	public static CommandManager 	commandManager;
 	public static TotemPopListener 	popListener;
 	private AnnotatedEventManager 	eventManager = new AnnotatedEventManager();
@@ -69,7 +71,7 @@ public class Zenith implements IGlobals
 
 	@Mod.EventHandler
 	public void init(FMLPreInitializationEvent event) throws IOException {
-		init(InitStage.Pre);
+	//	init(InitStage.Pre);
 	}
 
 	@Mod.EventHandler
@@ -97,12 +99,12 @@ public class Zenith implements IGlobals
 		System.out.println("[ZENITH] Saved!");
 	}
 
-//	@Init(stage = InitStage.Pre)
+	//	@Init(stage = InitStage.Pre)
 	public void msg(){
 		System.out.println("[ZENITH] initilizeeeeee");
 	}
 
-//	@Init(stage = InitStage.During)
+	//	@Init(stage = InitStage.During)
 	public void load() {
 		logger = new Logger();
 
@@ -124,6 +126,8 @@ public class Zenith implements IGlobals
 
 		tickManager = new TickManager();
 
+		configManagerJSON = new ConfigManagerJSON();
+
 		commandManager = new CommandManager();
 
 		clickGUI = new ClickGUI();
@@ -132,13 +136,12 @@ public class Zenith implements IGlobals
 
 		timerManager = new TimerManager();
 
-//		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-//			ConfigManagerJSON.saveConfig();
-//			System.out.println("Saving Config!");
-//		}));
-//
-//		ConfigManagerJSON.loadConfig();
-//		System.out.println("Config System Loaded!");
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			ConfigManagerJSON.saveConfig();
+		System.out.println("Saving Config!");
+	}));
+
+		ConfigManagerJSON.loadConfig();
 
 		Zenith.INSTANCE.getEventManager().addEventListener(timerManager);
 
@@ -177,15 +180,15 @@ public class Zenith implements IGlobals
 //			}
 //		}
 
-		Set<Method> initTasks = getAnnotatedMethods().collect(Collectors.toSet());
+		//Set<Method> initTasks = getAnnotatedMethods().collect(Collectors.toSet());
 
 //		Set<Method> initTasks = reflections.getMethodsAnnotatedWith(Init.class);
-		if (initTasks == null || initTasks.size() < 1) return;
+		//if (initTasks == null || initTasks.size() < 1) return;
 
-		for (Method initTask : initTasks) {
-			Init annotation = initTask.getAnnotation(Init.class);
-			if (annotation != null && annotation.stage().equals(initStage)) reflectInit(initTask, annotation);
-		}
+	//	for (Method initTask : initTasks) {
+		//	Init annotation = initTask.getAnnotation(Init.class);
+		//	if (annotation != null && annotation.stage().equals(initStage)) reflectInit(initTask, annotation);
+	//	}
 	}
 
 	/**
@@ -227,10 +230,10 @@ public class Zenith implements IGlobals
 
 	public static Stream<Method> getAnnotatedMethods() throws IOException {
 		List<Method> out = new ArrayList<>();
-		getClasses().forEach(clazz -> getMethods(clazz)
-				.filter(method -> method.isAnnotationPresent(Init.class))
-				.forEach(method -> out.add(method))
-		);
+		//getClasses().forEach(clazz -> getMethods(clazz)
+				//.filter(method -> method.isAnnotationPresent(Init.class))
+				//.forEach(method -> out.add(method))
+		//);
 		return out.stream();
 	}
 
@@ -246,9 +249,9 @@ public class Zenith implements IGlobals
 
 	public static Stream<Class> getClasses() throws IOException {
 		List<Class> out = new ArrayList<>();
-		ClassPath.from(Launch.classLoader).getAllClasses().stream().forEach(
-				classInfo -> out.add(classInfo.load())
-		);
+		//ClassPath.from(Launch.classLoader).getAllClasses().stream().forEach(
+			//	classInfo -> out.add(classInfo.load())
+		//);
 		return out.stream();
 	}
 }
